@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>아유타 생두 도감 · AYUTA COFFEE LAB</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#241c17;--ink-soft:#5b4d40;--paper:#f1e9db;--card:#fbf7ef;--line:#ddccb4;--line-soft:#e9ddca;
+  --green:#5e7338;--green-deep:#465828;--roast:#b5651d;--mud:#9a8467;--cherry:#c24b3a;
+  --kr:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR",sans-serif;--mono:"Spline Sans Mono",ui-monospace,Menlo,monospace;}
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--paper);color:var(--ink);font-family:var(--kr);line-height:1.55;-webkit-font-smoothing:antialiased;padding:0 0 64px}
+  .wrap{max-width:680px;margin:0 auto;padding:0 18px}
+  .back{display:inline-flex;align-items:center;gap:6px;margin-top:20px;font-size:12.5px;color:var(--mud);text-decoration:none;font-weight:600}
+  .back:hover{color:var(--green-deep)}
+  header{padding:24px 0 4px;text-align:center}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--green-deep);font-weight:600;display:flex;align-items:center;justify-content:center;gap:10px}
+  .eyebrow::before,.eyebrow::after{content:"";height:1px;width:22px;background:var(--line)}
+  h1{font-size:29px;letter-spacing:-.02em;margin:14px 0 8px;font-weight:800}
+  .sub{color:var(--ink-soft);font-size:14.5px;margin:0}
+  .intro{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-top:20px;font-size:13.5px;color:var(--ink-soft);line-height:1.75}
+  .intro b{color:var(--ink);font-weight:700}
+  .listlabel{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--mud);margin:26px 2px 0;display:flex;align-items:center;gap:10px}
+  .listlabel::after{content:"";flex:1;height:1px;background:var(--line)}
+  .bean{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 17px;margin-top:13px}
+  .bean.main{border:1.5px solid var(--roast);background:linear-gradient(180deg,#fff,#fbf3e8)}
+  .bhead{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+  .bttl{min-width:0}
+  .bkr{font-size:17px;font-weight:800;letter-spacing:-.01em;line-height:1.3}
+  .ben{font-family:var(--mono);font-size:9.5px;letter-spacing:.07em;color:var(--mud);text-transform:uppercase;margin-top:4px}
+  .tag-main{font-size:10px;font-weight:700;color:#fff;background:var(--roast);border-radius:20px;padding:2px 8px;margin-left:7px;vertical-align:middle;white-space:nowrap}
+  .tag-rob{font-family:var(--mono);font-size:8.5px;font-weight:700;letter-spacing:.05em;color:var(--roast);border:1px solid var(--roast);border-radius:5px;padding:1px 5px;margin-left:6px;vertical-align:middle;white-space:nowrap}
+  .cup{flex:none;text-align:center;border:1px solid var(--line);border-radius:11px;padding:7px 11px;background:#fff;min-width:66px}
+  .cup .cl{display:block;font-family:var(--mono);font-size:8px;font-weight:700;letter-spacing:.1em;color:var(--mud)}
+  .cup .cv{display:block;font-family:var(--mono);font-size:19px;font-weight:700;color:var(--green-deep);line-height:1.1;margin-top:2px}
+  .cup.main{border-color:var(--roast);background:var(--roast)}
+  .cup.main .cl{color:#f3d9bd} .cup.main .cv2{display:block;font-size:12px;font-weight:800;color:#fff;margin-top:3px}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:13px}
+  .chip{font-size:12px;font-weight:600;color:var(--green-deep);background:#eef0e4;border:1px solid #d8ddc4;border-radius:20px;padding:3px 10px}
+  .specs{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:11px;overflow:hidden;margin-top:13px;background:#fff}
+  .spec{padding:9px 12px;border-bottom:1px solid var(--line-soft)} .spec:nth-child(odd){border-right:1px solid var(--line-soft)}
+  .spec .k{font-size:10.5px;color:var(--mud);font-weight:600} .spec .v{font-family:var(--mono);font-size:12px;font-weight:600;margin-top:3px;line-height:1.35}
+  .bnote{font-size:12.5px;color:var(--ink-soft);line-height:1.7;margin:13px 0 0}
+  .cta{margin-top:30px;background:var(--ink);color:#f3ead9;border-radius:18px;padding:32px 24px;text-align:center;background-image:radial-gradient(rgba(241,233,219,.05) .7px,transparent .7px);background-size:13px 13px}
+  .cta .eye{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#caa46f;font-weight:700}
+  .cta h2{font-size:22px;font-weight:800;letter-spacing:-.02em;margin:11px 0 0}
+  .cta p{color:#cdbfab;font-size:14px;margin:10px auto 0;max-width:440px;line-height:1.7}
+  .cta .btns{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:20px}
+  .cta .btn{display:inline-flex;align-items:center;gap:8px;background:var(--roast);color:#fff;text-decoration:none;font-weight:700;font-size:15px;padding:13px 24px;border-radius:12px;transition:transform .15s,background .15s}
+  .cta .btn:hover{transform:translateY(-2px);background:#c4701f}
+  .cta .btn2{display:inline-flex;align-items:center;gap:7px;background:#03c75a;color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:13px 22px;border-radius:12px;transition:transform .15s,background .15s}
+  .cta .btn2:hover{transform:translateY(-2px);background:#02b14f}
+  .cta .alt{display:block;margin-top:14px;font-size:12px;color:#a9967e}
+  .src{font-size:11px;color:var(--mud);line-height:1.7;margin-top:22px;padding-top:13px;border-top:1px solid var(--line);text-align:center}
+  .foot{margin-top:18px;text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--mud)}
+  .foot b{color:var(--ink-soft);font-weight:600}
+  .gloss{background:#f6efe2;border:1px dashed var(--line);border-radius:12px;margin-top:11px;overflow:hidden}
+  .gloss summary{list-style:none;cursor:pointer;padding:12px 15px;display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;color:var(--green-deep)}
+  .gloss summary::-webkit-details-marker{display:none}
+  .gloss .gi{font-size:13px;color:var(--green)}
+  .gloss .gchev{margin-left:auto;flex:none;color:var(--mud);transition:transform .25s}
+  .gloss[open] .gchev{transform:rotate(180deg)}
+  .gloss .gbody{padding:0 15px 12px}
+  .gloss .gt{font-size:12.5px;color:var(--ink-soft);line-height:1.65;padding:9px 0;border-top:1px solid var(--line-soft)}
+  .gloss .gt b{color:var(--ink);font-weight:700;font-family:var(--mono);font-size:11.5px}
+  .gloss .farmtext{font-size:12.5px;color:var(--ink-soft);line-height:1.75;margin:0;padding:6px 0 2px}
+  .intronote{font-size:11.5px;color:var(--mud);margin:9px 4px 0;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="index.html">← 아유타 커피랩</a>
+  <header>
+    <div class="eyebrow">아유타 커피랩 · 생두 카탈로그</div>
+    <h1>아유타 생두 도감</h1>
+    <p class="sub">아유타커피가 직접 들여오는 인도네시아 생두</p>
+  </header>
+  <div class="intro">
+    아유타커피가 들여오는 커피들은 거의 대부분 <b>인도네시아 화산 고지대 산지의 생두</b>예요. 대표 생두는 중부 자바의 <b>아유타 클린컵 로부스타</b>이고, 아라비카는 서부 자바 프리앙거(커핑 87.25)를 비롯해 발리·케린치·토라자·소코리아까지 갖췄어요. 앞으로 더 추가될 거예요.
+  </div>
+  <p class="intronote">※ 맨 아래에는 커피 관련 용어를 정리해놨어요!</p>
+  <div class="listlabel">생두 · 6종</div>
+  <div class="bean main">
+    <div class="bhead">
+      <div class="bttl"><div class="bkr">아유타 클린컵 로부스타<span class="tag-main">★ 대표</span><span class="tag-rob">로부스타</span></div><div class="ben">Ayuta Clean-cup Robusta · Temanggung, Central Java</div></div>
+      <div class="cup main"><span class="cl">아유타</span><span class="cv2">대표 생두</span></div>
+    </div>
+    <div class="chips"><span class="chip">버터</span><span class="chip">몰트</span><span class="chip">플로럴</span><span class="chip">몰라세스</span><span class="chip">팜슈거</span><span class="chip">피스타치오</span></div>
+    <div class="specs"><div class="spec"><div class="k">산지</div><div class="v">중부 자바 테망궁 (신도로·숨빙 화산)</div></div><div class="spec"><div class="k">고도</div><div class="v">800–1,000m</div></div><div class="spec"><div class="k">품종</div><div class="v">BP · Tugusari</div></div><div class="spec"><div class="k">가공</div><div class="v">내추럴</div></div><div class="spec"><div class="k">특징</div><div class="v">클린컵</div></div></div>
+    <p class="bnote">2018년 설립된 테망궁 농장에서, 80% 이상 익은 체리만 핸드픽으로 골라 만드는 클린컵 로부스타. 자가 시설 생산·가공과 소농 협력으로 품질과 공급이 안정적이다.</p>
+    <details class="gloss">
+      <summary><span class="gi">ⓘ</span> 산지 노트<svg class="gchev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="gbody"><p class="farmtext">아유타 클린컵 로부스타는 2018년에 설립된 테망궁 지역의 농장에서 생산됩니다. 해당 농장은 자가 시설을 중심으로 운영 체계를 구축했으며, 팀 단위의 생산과 가공이 이루어지고 있습니다. 또한 지역의 소규모 농가 및 수집업자들과 협력하여 원두를 수급하며, 이를 통해 비교적 안정적인 물량을 확보합니다. 농장에서는 각 농가에 수확 시기와 체리 선별 기준에 대한 가이드와 교육을 제공하여, 전반적인 품질 관리가 함께 이루어지고 있습니다. 가공은 전통적인 방식으로 진행되며, 최소 80% 이상 익은 체리만을 선별하여 사용합니다. 이후 선별 과정은 작업자에 의해 핸드픽으로 이루어지며, 이는 지역 고용을 지원하는 동시에 일정한 품질을 유지하는 데 기여합니다. 이러한 과정을 통해, 아유타는 클린컵의 맛, 안정적인 공급과 일관된 품질을 동시에 확보한 로부스타입니다.</p></div>
+    </details>
+  </div>
+  <div class="bean">
+    <div class="bhead">
+      <div class="bttl"><div class="bkr">서부 자바 · 프리앙거</div><div class="ben">West Java Preanger · Kamojang</div></div>
+      <div class="cup"><span class="cl">CUPPING</span><span class="cv">87.25</span></div>
+    </div>
+    <div class="chips"><span class="chip">베리</span><span class="chip">꽃향</span><span class="chip">펑키</span><span class="chip">단맛</span><span class="chip">미디엄 바디</span></div>
+    <div class="specs"><div class="spec"><div class="k">산지</div><div class="v">서부 자바 카모장</div></div><div class="spec"><div class="k">고도</div><div class="v">약 1,300–1,500m</div></div><div class="spec"><div class="k">품종</div><div class="v">Lini S·Sigararutang·Kartika·Typica</div></div><div class="spec"><div class="k">가공</div><div class="v">내추럴 / 익스텐디드 내추럴</div></div><div class="spec"><div class="k">수확</div><div class="v">4–6월</div></div></div>
+    <p class="bnote">도감 최고 커핑 점수. 화산 고지의 내추럴 가공으로 베리·꽃향에 펑키한 발효 뉘앙스가 화사하게 얹힌다.</p>
+    <details class="gloss">
+      <summary><span class="gi">ⓘ</span> 산지 노트<svg class="gchev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="gbody"><p class="farmtext">이곳은 커피를 통해 여성의 자립을 돕는 산지입니다. 공동체 안에서 여성들은 오랫동안 가정을 돌보고 집안을 건사하며 밭일까지 도맡아 왔지만, 변함없는 헌신과 노고에도 주어진 기회는 많지 않았습니다. 이러한 현실에 주목한 공동체 지도자들은 커피 재배와 생산을 통해 여성의 자립을 돕는 일에 본격적으로 나섰습니다.<br><br>시간이 흐르며, 품질과 사회적 가치를 함께 추구한 이들의 노력은 널리 인정받게 되었습니다. 해외 바이어들이 이 커피에 신뢰를 보냈고, 여러 대회에서 수상하며 국내에서도 좋은 평가를 받고 있습니다.</p></div>
+    </details>
+  </div>
+  <div class="bean">
+    <div class="bhead">
+      <div class="bttl"><div class="bkr">발리 · 불렐렝</div><div class="ben">Bali Buleleng · Anaerobic Natural</div></div>
+      <div class="cup"><span class="cl">CUPPING</span><span class="cv">85.1</span></div>
+    </div>
+    <div class="chips"><span class="chip">열대과일</span><span class="chip">베리</span><span class="chip">단맛</span><span class="chip">깔끔함</span><span class="chip">미디엄 바디</span></div>
+    <div class="specs"><div class="spec"><div class="k">산지</div><div class="v">북부 발리 불렐렝</div></div><div class="spec"><div class="k">고도</div><div class="v">약 1,200–1,300m</div></div><div class="spec"><div class="k">품종</div><div class="v">Kopyol·Lini S795</div></div><div class="spec"><div class="k">가공</div><div class="v">내추럴 아나에로빅</div></div><div class="spec"><div class="k">수확</div><div class="v">4–8월</div></div></div>
+    <p class="bnote">북부 발리의 내추럴 아나에로빅 로트. 무산소 발효로 열대과일과 베리 향이 또렷하고 단맛이 풍부하다.</p>
+    <details class="gloss">
+      <summary><span class="gi">ⓘ</span> 산지 노트<svg class="gchev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="gbody"><p class="farmtext">2015년에 설립된 이 농장은 산과 호수 사이에 자리 잡아, 고품질 커피를 길러내는 독특한 자연환경의 혜택을 누립니다. 이 지역의 깊은 커피 재배 전통을 바탕으로, 전통 방식과 현대적 기법을 접목해 한결같이 프리미엄급 생두를 생산합니다.<br><br>지역 공동체와도 긴밀히 협력하며 지속가능성, 윤리적 소싱, 그리고 농가의 자립을 중시합니다. 품질과 혁신에 헌신하는 이 농장은 생두와 원두를 모두 국내외 시장에 공급합니다.</p></div>
+    </details>
+  </div>
+  <div class="bean">
+    <div class="bhead">
+      <div class="bttl"><div class="bkr">수마트라 · 케린치</div><div class="ben">Kerinci · Jambi, Sumatra</div></div>
+      <div class="cup"><span class="cl">CUPPING</span><span class="cv">84.4</span></div>
+    </div>
+    <div class="chips"><span class="chip">시트러스</span><span class="chip">트로피컬 프루트</span><span class="chip">은은한 스파이스</span><span class="chip">단 피니시</span></div>
+    <div class="specs"><div class="spec"><div class="k">산지</div><div class="v">잠비 케린치 화산</div></div><div class="spec"><div class="k">고도</div><div class="v">1,200–2,000m</div></div><div class="spec"><div class="k">품종</div><div class="v">Sigararutang</div></div><div class="spec"><div class="k">가공</div><div class="v">아나에로빅 내추럴</div></div><div class="spec"><div class="k">수확</div><div class="v">4–6월</div></div></div>
+    <p class="bnote">케린치 화산의 서늘한 고지대. 아나에로빅 내추럴로 밝은 시트러스와 트로피컬 향이 깨끗하게 살아난다. 인도네시아의 대표적 계피 산지이기도 하다.</p>
+    <details class="gloss">
+      <summary><span class="gi">ⓘ</span> 산지 노트<svg class="gchev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="gbody"><p class="farmtext">케린치 커피는 케린치 화산의 비옥한 화산토 비탈, 해발 1,200~2,000m 고지대에서 재배됩니다. 서늘한 기후 덕분에 밝고 깨끗한 잔이 만들어지며, 시트러스와 트로피컬 프루트 향에 은은한 향신료 뉘앙스, 그리고 부드럽고 단 여운이 어우러집니다.<br><br>가공은 아나에로빅 내추럴(무산소 발효)을 거친 뒤 햇볕에 건조하는 방식으로 진행됩니다. 이 과정은 과일향의 복합미를 끌어올려 풍미를 한층 깊게 만들어 줍니다.<br><br>케린치는 인도네시아의 대표적인 계피 산지로도 이름난 곳으로, 그만큼 이 땅과 테루아의 풍요로움을 잘 보여 줍니다.</p></div>
+    </details>
+  </div>
+  <div class="bean">
+    <div class="bhead">
+      <div class="bttl"><div class="bkr">술라웨시 · 토라자</div><div class="ben">Toraja · South Sulawesi</div></div>
+      <div class="cup"><span class="cl">CUPPING</span><span class="cv">82.75</span></div>
+    </div>
+    <div class="chips"><span class="chip">프루티</span><span class="chip">플로럴</span><span class="chip">사탕수수</span><span class="chip">캐러멜</span><span class="chip">시트릭 산미</span></div>
+    <div class="specs"><div class="spec"><div class="k">산지</div><div class="v">남술라웨시 토라자 (란테 카루아 등)</div></div><div class="spec"><div class="k">고도</div><div class="v">1,400–1,700m</div></div><div class="spec"><div class="k">품종</div><div class="v">Lini S795</div></div><div class="spec"><div class="k">가공</div><div class="v">웨트헐(길링 바사) / 풀워시</div></div><div class="spec"><div class="k">수확</div><div class="v">5–9월</div></div><div class="spec"><div class="k">밀도</div><div class="v">650–750 g/L</div></div></div>
+    <p class="bnote">고지대 토라자 로트. 흙내 위에 따뜻한 향신료와 사탕수수·캐러멜 단맛이 얹혀 복합적이다. 17세기 네덜란드가 처음 커피를 들인 란테 카루아에서 시작됐다.</p>
+    <details class="gloss">
+      <summary><span class="gi">ⓘ</span> 산지 노트<svg class="gchev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="gbody"><p class="farmtext">이 지역의 커피 재배 역사는 17세기로 거슬러 올라갑니다. 당시 H.J. 스톡 판 데이크(H.J. Stock van Dykk)가 이끄는 네덜란드인들이 마카사르에서 북쪽으로 약 450km 떨어진 란테 카루아(Rante Karua) 비탈에 커피나무를 처음 들여왔습니다. 이후 혁명기를 지나며 지역 주민들이 농장 운영을 이어받았고, 이 땅 특유의 은은한 흙내와 비옥한 토양 — 토라자 커피의 품질을 끌어올리는 바로 그 요소들 — 을 살린 커피 재배 전통이 자리 잡았습니다.<br><br>2015년에는 전용 가공소를 세우며 새로운 장이 열렸습니다. 작은 시작이었지만, 지금은 여러 지역 농가 그룹·협동조합의 110명이 넘는 농부들과 긴밀히 협력하는 규모로 성장했습니다. 이곳에서 생산되는 생두의 대부분은 인도네시아 특유의 반수세식 ‘길링 바사’ 방식으로 가공되며, 일부는 풀워시 방식으로 처리됩니다.<br><br>농부들의 삶을 더 낫게 하려는 마음으로, 이곳은 농가에 양을 나눠 줍니다. 농부들은 그 분뇨를 모아, 때로는 베텔 잎·빈랑 열매·참마 같은 천연 재료와 섞어 유기비료를 만듭니다. 이러한 노력은 토양의 비옥함을 높일 뿐 아니라 지속가능한 농업으로 이어집니다.<br><br>나아가 커피가 팔릴 때마다, 이곳은 지역 학교와 보건소, 전통 시장의 발전을 지원하며 그 수익을 공동체에 환원합니다. 이를 통해 지역의 사회적·경제적 기반이 한층 더 단단해집니다.</p></div>
+    </details>
+  </div>
+  <div class="bean">
+    <div class="bhead">
+      <div class="bttl"><div class="bkr">플로레스 · 소코리아</div><div class="ben">Flores Sokoria · Ende, NTT</div></div>
+      <div class="cup"><span class="cl">CUPPING</span><span class="cv">82.55</span></div>
+    </div>
+    <div class="chips"><span class="chip">잭프루트</span><span class="chip">다크초콜릿</span><span class="chip">꿀 단맛</span><span class="chip">흑설탕</span><span class="chip">로컬 프루티</span></div>
+    <div class="specs"><div class="spec"><div class="k">산지</div><div class="v">플로레스 소코리아 (엔데)</div></div><div class="spec"><div class="k">고도</div><div class="v">800–1,400m</div></div><div class="spec"><div class="k">품종</div><div class="v">Typika·Lini S795·Kartika·Red Bourbon</div></div><div class="spec"><div class="k">가공</div><div class="v">내추럴 / 아나에로빅 / 풀워시</div></div><div class="spec"><div class="k">수확</div><div class="v">5–9월</div></div><div class="spec"><div class="k">그레이드</div><div class="v">G1–G3</div></div></div>
+    <p class="bnote">18개 전통 마을 공동체가 일구는 화산토 로트. 무농약 재배로, 잭프루트와 진한 초콜릿·흑설탕의 개성 있는 단맛을 낸다.</p>
+    <details class="gloss">
+      <summary><span class="gi">ⓘ</span> 산지 노트<svg class="gchev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="gbody"><p class="farmtext">이 농장 공동체는 18개의 전통 마을이 모인 연합으로, 2017년부터 2,500명이 넘는 구성원이 함께하고 있습니다. 각 마을은 저마다 자신의 땅과 커피 재배를 독립적으로 관리하며, 그 안에서 전통과 지속가능성, 그리고 지식의 공유가 단단히 자리 잡았습니다.<br><br>소코리아는 엔데 군에 자리한 마을로, 커피나무는 켈리무투 화산 비탈의 비옥한 화산토, 조상 대대로 이어온 땅에서 자랍니다. 커피와 함께 카카오·정향·바닐라·육두구 같은 작물도 재배하며, 화학비료를 의도적으로 쓰지 않는 전통 방식을 지켜 땅의 자연스러운 균형과 자원을 보존합니다.<br><br>정성스러운 가공을 통해 내추럴·풀워시·허니·내추럴 아나에로빅 등 다양한 프로파일의 커피를 만들며, 등급은 G1부터 G3까지 매겨집니다. 커피는 이 공동체의 주요 수입원으로, 일상의 생계를 떠받치고 그들의 문화적 유산을 이어가는 데 보탬이 됩니다.</p></div>
+    </details>
+  </div>
+
+  <div class="listlabel">용어 풀이</div>
+  <details class="gloss">
+    <summary><span class="gi">ⓘ</span> 품종 (Variety)<svg class="gchev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <div class="gbody">
+      <div class="gt"><b>BP</b> — ICCRI(인도네시아 커피·코코아 연구소)가 육성한 로부스타 클론 품종(BP 42·BP 309 등). ‘BP’는 연구소 선발 계통 번호로, 수확량·병저항성이 좋아 인도네시아 로부스타의 주력이에요.</div>
+      <div class="gt"><b>Tugusari</b> — 인도네시아의 지역 재래 로부스타 품종.</div>
+      <div class="gt"><b>Lini S (S795)</b> — 동남아 고지대에 널리 심는 아라비카. ‘S라인(S795)’ 계열로 잎녹병에 강해요.</div>
+      <div class="gt"><b>Sigararutang</b> — 다수확·조생 아라비카. 수마트라·자바에 널리 보급된 인도네시아 대표 품종.</div>
+      <div class="gt"><b>Kartika</b> — 인도네시아가 육성한 카티모르 계열 아라비카(다수확형).</div>
+      <div class="gt"><b>Typica / Typika</b> — 가장 오래된 아라비카 원종 계열. 수확량은 적지만 컵이 깨끗해요.</div>
+      <div class="gt"><b>Kopyol</b> — 발리 등지에서 재배되는 아라비카 지역 품종.</div>
+      <div class="gt"><b>Red Bourbon</b> — 단맛·복합미가 좋은 고전 버번 계열 아라비카.</div>
+    </div>
+  </details>
+  <details class="gloss">
+    <summary><span class="gi">ⓘ</span> 가공 방식 (Processing)<svg class="gchev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <div class="gbody">
+      <div class="gt"><b>내추럴 (Natural)</b> — 체리를 통째로 말린 뒤 탈곡. 과일향·단맛이 강하게 배어요.</div>
+      <div class="gt"><b>익스텐디드 내추럴 (Extended Natural)</b> — 내추럴인데 발효·건조를 더 길게 가져가는 방식. 발효 풍미와 단맛이 한층 깊어져요.</div>
+      <div class="gt"><b>아나에로빅 (Anaerobic)</b> — 산소를 차단한 밀폐 탱크에서 발효(무산소 발효). 독특한 발효향·복합미가 생겨요.</div>
+      <div class="gt"><b>웨트헐 / 길링 바사 (Giling Basah)</b> — 인도네시아 특유 방식. 점액질이 남은 반건조 상태에서 껍질을 벗겨 말려요. 묵직한 바디·흙내가 특징.</div>
+      <div class="gt"><b>풀워시 (Full Wash · 워시드)</b> — 점액질을 물로 씻어낸 뒤 건조. 깨끗하고 또렷한 산미.</div>
+    </div>
+  </details>
+  <details class="gloss">
+    <summary><span class="gi">ⓘ</span> 산지 · 기타<svg class="gchev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <div class="gbody">
+      <div class="gt"><b>신도로 · 숨빙 (Sindoro · Sumbing)</b> — 중부 자바의 쌍둥이 화산. 그 비탈의 화산토 고지대에서 테망궁 커피가 자라요.</div>
+      <div class="gt"><b>커핑 점수</b> — 표준 방식으로 맛을 평가한 점수(100점 만점). 보통 80점 이상이면 스페셜티로 쳐요.</div>
+      <div class="gt"><b>밀도 (g/L)</b> — 생두가 얼마나 단단·치밀한지. 고지대일수록 높고 로스팅 안정성과 관련돼요.</div>
+      <div class="gt"><b>그레이드 G1–G3</b> — 결점두 수 등으로 매기는 등급. G1이 결점이 가장 적은 상위 등급.</div>
+      <div class="gt"><b>핸드픽 (Hand-pick)</b> — 사람이 손으로 익은 체리·결점두를 골라내는 것. 품질·균일성을 높여요.</div>
+    </div>
+  </details>
+  <div class="cta">
+    <div class="eye">구입 문의</div>
+    <h2>좋은 가격, 좋은 품질의 커피를 찾고 계신가요?</h2>
+    <p>인도네시아 커피 생두·원두 납품 문의를 받습니다.<br><b>10kg 이상 구입 시 도매가</b>가 적용됩니다!</p>
+    <div class="btns">
+      <a class="btn" href="tel:010-4263-4982">샘플·구입 문의하기
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn2" href="https://smartstore.naver.com/ayutatrading" target="_blank" rel="noopener">아유타커피 스마트스토어
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></a>
+    </div>
+    <span class="alt">아유타커피 <b style="color:#f3ead9;font-family:var(--mono);letter-spacing:.02em">010-4263-4982</b></span>
+  </div>
+  <p class="src">스펙·커핑·가공 정보는 공급사 산지 스펙시트 기준이며, 향미는 일반적 경향으로 로트·수확연도에 따라 달라질 수 있습니다.</p>
+  <div class="foot"><b>아유타 커피랩</b> · AYUTA COFFEE LAB</div>
+</div>
+</body>
+</html>
