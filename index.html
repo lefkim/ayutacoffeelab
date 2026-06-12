@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>아유타 커피랩 · AYUTA COFFEE LAB</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#241c17;--ink-soft:#5b4d40;--paper:#f1e9db;--card:#fbf7ef;--line:#ddccb4;--line-soft:#e9ddca;
+    --green:#5e7338;--green-deep:#465828;--roast:#b5651d;--mud:#9a8467;--cherry:#c24b3a;
+    --kr:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR",sans-serif;
+    --mono:"Spline Sans Mono",ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--paper);color:var(--ink);font-family:var(--kr);line-height:1.55;-webkit-font-smoothing:antialiased;padding:0 0 64px}
+  .wrap{max-width:720px;margin:0 auto;padding:0 20px}
+
+  /* hero */
+  header{text-align:center;padding:60px 0 8px}
+  .brand{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--green-deep);font-weight:700}
+  .brand .bean{width:16px;height:16px}
+  .brand .bean svg{display:block}
+  h1{font-size:clamp(28px,7vw,40px);letter-spacing:-.025em;line-height:1.18;margin:22px 0 0;font-weight:800}
+  h1 .g{color:var(--green-deep)} h1 .r{color:var(--roast)}
+  .lede{color:var(--ink-soft);font-size:15px;line-height:1.8;max-width:520px;margin:18px auto 0}
+  .lede b{color:var(--ink);font-weight:700}
+
+  .seclabel{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--mud);text-align:center;margin:46px 0 0;display:flex;align-items:center;justify-content:center;gap:12px}
+  .seclabel::before,.seclabel::after{content:"";height:1px;width:30px;background:var(--line)}
+
+  /* asset grid */
+  .grid{display:flex;flex-direction:column;gap:13px;margin-top:20px}
+  .tile{display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;text-decoration:none;color:inherit;transition:transform .18s,box-shadow .18s,border-color .18s}
+  a.tile:hover{transform:translateY(-2px);box-shadow:0 10px 24px -14px rgba(36,28,23,.4);border-color:var(--roast)}
+  .tile.soon{opacity:.72}
+  .ico{flex:none;width:48px;height:48px;border-radius:12px;display:grid;place-items:center;background:#fff;border:1px solid var(--line);color:var(--roast)}
+  .tile.soon .ico{color:var(--mud)}
+  .ico svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .t-body{flex:1;min-width:0}
+  .t-kr{font-size:17px;font-weight:800;letter-spacing:-.01em;line-height:1.25}
+  .t-en{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mud);margin-top:3px}
+  .t-desc{font-size:12.5px;color:var(--ink-soft);line-height:1.55;margin-top:7px}
+  .t-side{flex:none;align-self:stretch;display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;gap:10px}
+  .badge{font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:20px;white-space:nowrap}
+  .badge.open{color:#fff;background:var(--green)}
+  .badge.soon{color:var(--mud);background:#efe6d4;border:1px solid var(--line)}
+  .arrow{color:var(--roast);width:20px;height:20px;stroke:currentColor;stroke-width:2;fill:none}
+  a.tile:hover .arrow{transform:translateX(3px);transition:transform .18s}
+
+  /* cta */
+  .cta{margin-top:42px;background:var(--ink);color:#f3ead9;border-radius:18px;padding:34px 26px;text-align:center;background-image:radial-gradient(rgba(241,233,219,.05) .7px,transparent .7px);background-size:13px 13px}
+  .cta .eye{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#caa46f;font-weight:700}
+  .cta h2{font-size:23px;font-weight:800;letter-spacing:-.02em;margin:12px 0 0}
+  .cta p{color:#cdbfab;font-size:14px;margin:10px auto 0;max-width:420px;line-height:1.7}
+  .cta .btn{display:inline-flex;align-items:center;gap:8px;margin-top:20px;background:var(--roast);color:#fff;text-decoration:none;font-weight:700;font-size:15px;padding:13px 24px;border-radius:12px;transition:transform .15s,background .15s}
+  .cta .btn:hover{transform:translateY(-2px);background:#c4701f}
+  .cta .btns{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:20px}
+  .cta .btns .btn{margin-top:0}
+  .cta .btn2{display:inline-flex;align-items:center;gap:7px;background:#03c75a;color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:13px 22px;border-radius:12px;transition:transform .15s,background .15s}
+  .cta .btn2:hover{transform:translateY(-2px);background:#02b14f}
+  .cta .alt{display:block;margin-top:14px;font-size:12px;color:#a9967e}
+
+  .foot{margin-top:34px;text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--mud)}
+  .foot b{color:var(--ink-soft);font-weight:600}
+  @media(prefers-reduced-motion:reduce){.tile,a.tile:hover,.arrow{transition:none;transform:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand">
+      <span class="bean"><svg viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="12" rx="6" ry="9" transform="rotate(32 12 12)" stroke="#5e7338" stroke-width="1.8"/><path d="M9.6 5.5c1.6 3.8 1.6 9.2 0 13" transform="rotate(32 12 12)" stroke="#5e7338" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+      AYUTA COFFEE LAB
+    </div>
+    <h1>커피를 <span class="g">공부하고</span>,<br>고르고, <span class="r">장사하다</span></h1>
+    <p class="lede"><b>아유타커피</b>는 인도네시아 커피를 수입·유통합니다.<br><b>아유타 커피랩</b>은 그 곁에서, 커피를 더 잘 아는 <b>도구와 콘텐츠</b>를 만듭니다.</p>
+  </header>
+
+  <div class="seclabel">도구와 콘텐츠</div>
+  <div class="grid">
+
+    <a class="tile" href="indonesia_origin_map.html">
+      <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 21s-7-5.4-7-11a7 7 0 0 1 14 0c0 5.6-7 11-7 11z"/><circle cx="12" cy="10" r="2.4"/></svg></div>
+      <div class="t-body">
+        <div class="t-kr">인도네시아 커피 산지 지도</div>
+        <div class="t-en">Origin Map</div>
+        <div class="t-desc">인도네시아 커피 산지를 실제 지형 지도에서 확인할 수 있어요</div>
+      </div>
+      <div class="t-side"><span class="badge open">공개</span>
+        <svg class="arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+    </a>
+
+    <div class="tile soon">
+      <div class="ico"><svg viewBox="0 0 24 24"><ellipse cx="9" cy="10" rx="3.4" ry="5" transform="rotate(28 9 10)"/><ellipse cx="15" cy="14" rx="3.4" ry="5" transform="rotate(28 15 14)"/></svg></div>
+      <div class="t-body">
+        <div class="t-kr">아유타 생두 도감</div>
+        <div class="t-en">Green Beans</div>
+        <div class="t-desc">아유타커피가 취급하는 생두 라인업을 카드로 정리한 카탈로그예요</div>
+      </div>
+      <div class="t-side"><span class="badge soon">준비중</span></div>
+    </div>
+
+    <a class="tile" href="cafe_pricing.html">
+      <div class="ico"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2.2"/><rect x="8" y="6.2" width="8" height="3.2" rx="1"/><path d="M9 13h0M12 13h0M15 13h0M9 16.5h0M12 16.5h0M15 16.5h0"/></svg></div>
+      <div class="t-body">
+        <div class="t-kr">커피 장사로 부자되는 계산기</div>
+        <div class="t-en">Cafe Calculator</div>
+        <div class="t-desc">막막한 카페 운영에서 본전과 이익을 쉽게 계산해드려요</div>
+      </div>
+      <div class="t-side"><span class="badge open">공개</span>
+        <svg class="arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+    </a>
+
+  </div>
+
+  <div class="cta">
+    <div class="eye">구입 문의</div>
+    <h2>좋은 가격, 좋은 품질의 커피를 찾고 계신가요?</h2>
+    <p>인도네시아 커피 생두·원두 납품 문의를 받습니다.<br><b>10kg 이상 구입 시 도매가</b>가 적용됩니다!</p>
+    <div class="btns">
+      <a class="btn" href="tel:010-4263-4982">샘플·구입 문의하기
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn2" href="https://smartstore.naver.com/ayutatrading" target="_blank" rel="noopener">아유타커피 스마트스토어
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></a>
+    </div>
+    <span class="alt">아유타커피 <b style="color:#f3ead9;font-family:var(--mono);letter-spacing:.02em">010-4263-4982</b></span>
+  </div>
+
+  <div class="foot"><b>아유타 커피랩</b> · AYUTA COFFEE LAB</div>
+</div>
+</body>
+</html>

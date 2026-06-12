@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>커피 장사로 부자되는 계산기</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#241c17; --ink-soft:#5b4d40;
+    --paper:#f1e9db; --card:#fbf7ef;
+    --line:#ddccb4; --line-soft:#e9ddca;
+    --green:#5e7338; --green-deep:#465828;
+    --roast:#b5651d; --mud:#9a8467; --cherry:#c24b3a;
+    --kr:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR",sans-serif;
+    --mono:"Spline Sans Mono",ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--paper);color:var(--ink);font-family:var(--kr);line-height:1.5;-webkit-font-smoothing:antialiased;padding:0 0 64px}
+  .wrap{max-width:540px;margin:0 auto;padding:0 18px}
+
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--green-deep);font-weight:600;display:flex;align-items:center;gap:10px}
+
+  .screen{display:none;animation:fade .25s ease}
+  .screen.on{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  @media(prefers-reduced-motion:reduce){.screen{animation:none}}
+
+  /* ---------- MENU BOARD ---------- */
+  #board header{padding:40px 0 8px;text-align:center}
+  #board .eyebrow{justify-content:center;font-family:var(--kr);text-transform:none;letter-spacing:.01em;font-size:16px;font-weight:700;white-space:nowrap}
+  #board .eyebrow::before,#board .eyebrow::after{content:"";height:1px;width:22px;background:var(--line)}
+  #board h1{font-size:30px;letter-spacing:-.02em;margin:16px 0 6px;font-weight:800}
+  #board .sub{color:var(--ink-soft);font-size:14.5px;margin:0}
+  .board-card{background:var(--card);border:1px solid var(--line);border-radius:16px;margin-top:26px;padding:8px 6px;box-shadow:0 1px 0 #fff inset,0 8px 24px -18px rgba(36,28,23,.5)}
+  .board-title{font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--mud);text-align:center;padding:13px 0 5px}
+  .item{display:flex;align-items:center;gap:12px;width:100%;background:none;border:none;cursor:pointer;text-align:left;font-family:var(--kr);padding:16px 14px;border-radius:11px;color:var(--ink)}
+  .item+.item{border-top:1px solid var(--line-soft)}
+  .item:hover:not(:disabled){background:#fff}
+  .item:disabled{cursor:default;opacity:.5}
+  .item .nm{font-size:17px;font-weight:700;letter-spacing:-.01em}
+  .item .desc{font-size:12px;color:var(--ink-soft);margin-top:1px}
+  .item .leader{flex:1;border-bottom:1px dotted var(--line);margin:0 2px 5px;min-width:16px}
+  .item .go{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--green-deep);white-space:nowrap}
+  .item .soon{font-family:var(--mono);font-size:11px;color:var(--mud);white-space:nowrap}
+  .board-foot{text-align:center;font-size:13px;color:var(--ink-soft);margin-top:22px;line-height:1.6}
+
+  /* ---------- CALC ---------- */
+  .back{display:inline-flex;align-items:center;gap:7px;background:none;border:none;cursor:pointer;font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--ink-soft);padding:30px 0 0;font-weight:600}
+  .back:hover{color:var(--green-deep)}
+  #calc h1{font-size:25px;letter-spacing:-.02em;margin:14px 0 4px;font-weight:800}
+  #calc h1 .hl{color:var(--green-deep);border-bottom:2.5px solid var(--green);padding-bottom:1px}
+  #calc .sub{color:var(--ink-soft);font-size:14.5px;margin:0}
+
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 16px;margin-top:18px}
+
+  .slide{padding:14px 0}
+  .slide+.slide{border-top:1px solid var(--line-soft)}
+  .slide .lab{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:2px}
+  .slide .q{font-size:15px;font-weight:700;letter-spacing:-.01em}
+  .slide .val{font-family:var(--mono);font-size:19px;font-weight:700;color:var(--green-deep)}
+  .slide .note{font-size:11.5px;color:var(--ink-soft);margin:0 0 10px}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:26px;background:transparent;cursor:pointer;margin:0}
+  input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:#e6dac6}
+  input[type=range]::-moz-range-track{height:6px;border-radius:3px;background:#e6dac6}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:var(--green);border:3px solid #fff;box-shadow:0 1px 4px rgba(36,28,23,.35);margin-top:-9px}
+  input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:var(--green);border:3px solid #fff;box-shadow:0 1px 4px rgba(36,28,23,.35)}
+  input[type=range]:focus{outline:none}
+  input[type=range]:focus::-webkit-slider-thumb{outline:2px solid var(--green-deep);outline-offset:2px}
+  .ticks{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;color:var(--mud);margin-top:6px}
+
+  /* result */
+  .result{margin-top:20px;border-radius:16px;padding:22px 18px;border:1px solid var(--line);background:linear-gradient(180deg,#fbf7ef,#f5eee0)}
+  .verdict-lead{font-size:14px;color:var(--ink-soft);font-weight:600}
+  .verdict{font-family:var(--mono);font-weight:700;font-size:42px;line-height:1.06;letter-spacing:-.02em;margin:5px 0 2px}
+  .verdict.pos{color:var(--green-deep)} .verdict.neg{color:var(--cherry)}
+  .verdict .won{font-size:20px;color:var(--mud);font-weight:600}
+  .verdict-sub{font-size:13px;color:var(--ink-soft);margin:6px 0 0}
+  .be{display:flex;align-items:center;gap:10px;margin-top:16px;padding:13px 14px;background:#fff;border:1px solid var(--line);border-radius:11px}
+  .be .ic{font-family:var(--mono);font-weight:700;color:var(--green-deep)}
+  .be .txt{font-size:13.5px;line-height:1.45}
+  .be .txt b{font-weight:700}
+
+  .mini{margin-top:16px;padding-top:15px;border-top:1px dashed var(--line)}
+  .mini .row{display:flex;align-items:baseline;gap:8px;font-size:13px;color:var(--ink-soft)}
+  .mini .row b{font-family:var(--mono);color:var(--ink);font-weight:700}
+  .bar{display:flex;height:13px;border-radius:7px;overflow:hidden;margin:12px 0 10px;background:#ece2d2}
+  .bar span{height:100%}
+  .seg-mat{background:var(--roast)}.seg-fix{background:var(--mud)}.seg-fee{background:var(--cherry)}.seg-pro{background:var(--green)}.seg-loss{background:var(--cherry)}
+  .legend{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px}
+  .legend .li{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink-soft)}
+  .legend .dot{width:9px;height:9px;border-radius:2px;flex:none}
+  .legend .amt{margin-left:auto;font-family:var(--mono);font-weight:600;color:var(--ink)}
+  .honest{font-size:11.5px;color:var(--mud);margin-top:14px;line-height:1.6}
+
+  details.adv{margin-top:16px;border:1px solid var(--line);border-radius:12px;background:var(--card);overflow:hidden}
+  details.adv summary{font-size:13.5px;font-weight:700;color:var(--ink-soft);cursor:pointer;list-style:none;padding:15px}
+  details.adv summary::-webkit-details-marker{display:none}
+  details.adv summary::before{content:"▸ ";color:var(--green)}
+  details.adv[open] summary::before{content:"▾ "}
+  details.adv .advbody{padding:0 15px 8px}
+  .field{display:flex;flex-direction:column;gap:6px;margin:0 0 14px}
+  .field label{font-size:13px;font-weight:600}
+  .field .n{font-size:11px;color:var(--ink-soft);font-weight:400}
+  .inp{position:relative;display:flex;align-items:center}
+  .inp .pre,.inp .suf{position:absolute;font-family:var(--mono);font-size:12px;color:var(--mud);pointer-events:none}
+  .inp .pre{left:11px}.inp .suf{right:11px}
+  .adv input{width:100%;font-family:var(--mono);font-size:15px;font-weight:600;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:9px;padding:10px 11px;text-align:right;-moz-appearance:textfield}
+  .inp.haspre input{padding-left:26px}.inp.hassuf input{padding-right:34px}
+  .adv input::-webkit-outer-spin-button,.adv input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  .adv input:focus{outline:2px solid var(--green);outline-offset:1px;border-color:var(--green)}
+  .row2{display:grid;grid-template-columns:1.4fr 1fr;gap:10px}
+
+  .foot{margin-top:26px;font-size:11.5px;color:var(--mud);text-align:center;font-family:var(--mono);letter-spacing:.04em}
+</style>
+</head>
+<body>
+
+<!-- =============== MENU BOARD =============== -->
+<div class="wrap screen on" id="board">
+  <header>
+    <div class="eyebrow">정확한 계산만이 이익을 남긴다</div>
+    <h1>커피 장사로<br>부자되는 계산기</h1>
+    <p class="sub">메뉴를 고르고, 막대 세 개만 움직여 보세요.</p>
+  </header>
+  <div class="board-card">
+    <div class="board-title">— Menu —</div>
+    <button class="item" data-menu="americano">
+      <span class="nm">아메리카노</span>
+      <span class="leader"></span><span class="go">계산하기 →</span>
+    </button>
+    <button class="item" disabled><span class="nm">카페라떼</span><span class="leader"></span><span class="soon">준비중</span></button>
+    <button class="item" disabled><span class="nm">바닐라 라떼</span><span class="leader"></span><span class="soon">준비중</span></button>
+    <button class="item" disabled><span class="nm">콜드브루</span><span class="leader"></span><span class="soon">준비중</span></button>
+  </div>
+  <p class="board-foot">커피도, 장사도 처음이어도 괜찮아요.<br>어려운 숫자는 평균값으로 설정했어요.</p>
+</div>
+
+<!-- =============== AMERICANO CALC =============== -->
+<div class="wrap screen" id="calc">
+  <button class="back" id="back">← 메뉴판</button>
+  <h1><span class="hl">아메리카노</span>로 보는 카페 손익</h1>
+  <p class="sub">막대 세 개만 움직이면 됩니다.</p>
+
+  <div class="panel">
+    <div class="slide">
+      <div class="lab"><span class="q">월세는 얼마예요?</span><span class="val" id="rentV"></span></div>
+      <p class="note">가게를 빌리는 데 매달 나가는 돈이에요.</p>
+      <input id="rent" type="range" min="300000" max="4000000" step="100000" value="1500000">
+      <div class="ticks"><span>30만</span><span>200만</span><span>400만</span></div>
+    </div>
+    <div class="slide">
+      <div class="lab"><span class="q">한 잔 얼마에 팔 생각이세요?</span><span class="val" id="priceV"></span></div>
+      <p class="note">동네 카페 아메리카노는 보통 2,500~4,500원이에요.</p>
+      <input id="price" type="range" min="1500" max="6000" step="100" value="3500">
+      <div class="ticks"><span>1,500</span><span>3,500</span><span>6,000</span></div>
+    </div>
+    <div class="slide">
+      <div class="lab"><span class="q">하루에 몇 잔쯤 팔 것 같아요?</span><span class="val" id="dailyV"></span></div>
+      <p class="note">작은 동네 카페는 하루 80~150잔 정도예요. (전체 메뉴 합쳐서)</p>
+      <input id="daily" type="range" min="20" max="300" step="5" value="100">
+      <div class="ticks"><span>20잔</span><span>150잔</span><span>300잔</span></div>
+    </div>
+  </div>
+
+  <div class="result" id="result"></div>
+
+  <details class="adv">
+    <summary>나머지 숫자 (더 정확한 계산을 원하시면 누르세요)</summary>
+    <div class="advbody">
+      <div class="field"><label>인건비 <span class="n">직원 월급, 직접 일하면 0</span></label>
+        <div class="inp haspre hassuf"><span class="pre">₩</span><input id="labor" type="number" inputmode="numeric" value="1500000"><span class="suf">원</span></div></div>
+      <div class="field"><label>기타 고정비 <span class="n">전기·소모품 등, 한 달</span></label>
+        <div class="inp haspre hassuf"><span class="pre">₩</span><input id="etc" type="number" inputmode="numeric" value="500000"><span class="suf">원</span></div></div>
+      <div class="field"><label>원두 한 봉지 <span class="n">가격과 용량 (봉투에 적혀 있어요)</span></label>
+        <div class="row2">
+          <div class="inp haspre hassuf"><span class="pre">₩</span><input id="bagPrice" type="number" inputmode="numeric" value="25000"><span class="suf">원</span></div>
+          <div class="inp hassuf"><input id="bagGram" type="number" inputmode="numeric" value="1000"><span class="suf">g</span></div>
+        </div></div>
+      <div class="row2">
+        <div class="field"><label>한 잔 원두량</label>
+          <div class="inp hassuf"><input id="dose" type="number" inputmode="decimal" value="18"><span class="suf">g</span></div></div>
+        <div class="field"><label>부자재비 <span class="n">컵·리드 등</span></label>
+          <div class="inp haspre hassuf"><span class="pre">₩</span><input id="sundry" type="number" inputmode="numeric" value="130"><span class="suf">원</span></div></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>월 영업일수</label>
+          <div class="inp hassuf"><input id="days" type="number" inputmode="numeric" value="25"><span class="suf">일</span></div></div>
+        <div class="field"><label>카드 수수료</label>
+          <div class="inp hassuf"><input id="fee" type="number" inputmode="decimal" value="1.5" step="0.1"><span class="suf">%</span></div></div>
+      </div>
+    </div>
+  </details>
+
+  <div class="foot">아유타커피랩 · AYUTA COFFEE LAB</div>
+</div>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  const won = n => Math.round(n).toLocaleString("ko-KR");
+  const KRW = n => "₩"+won(n);
+  const num = id => { const v=parseFloat($(id).value); return isFinite(v)?v:0; };
+  const manwon = n => { // 보기 좋은 만원 단위 문구
+    const m = Math.round(n/10000);
+    return m.toLocaleString("ko-KR")+"만원";
+  };
+
+  document.querySelector('[data-menu="americano"]').addEventListener("click", ()=>{
+    $("board").classList.remove("on"); $("calc").classList.add("on"); window.scrollTo(0,0); calc();
+  });
+  $("back").addEventListener("click", ()=>{ $("calc").classList.remove("on"); $("board").classList.add("on"); window.scrollTo(0,0); });
+
+  function calc(){
+    $("rentV").textContent  = KRW(num("rent"));
+    $("priceV").textContent = KRW(num("price"));
+    $("dailyV").textContent = num("daily")+"잔";
+
+    const totalFixed = num("rent")+num("labor")+num("etc");
+    const days = num("days")||25;
+    const monthlyCups = num("daily")*days;
+    const fixedPer = monthlyCups>0 ? totalFixed/monthlyCups : 0;
+
+    const beanPerG = num("bagGram")>0 ? num("bagPrice")/num("bagGram") : 0;
+    const material = beanPerG*num("dose") + num("sundry");
+
+    const price = num("price");
+    const feeR = num("fee")/100;
+    const feeAmt = price*feeR;
+
+    const perCupProfit = price - material - fixedPer - feeAmt;
+    const monthProfit = perCupProfit * monthlyCups;
+    const marginPct = price>0 ? perCupProfit/price*100 : 0;
+
+    // 손익분기 (한 잔이 고정비 빼고 남기는 공헌이익)
+    const contrib = price - material - feeAmt;
+    const beMonthly = contrib>0 ? totalFixed/contrib : Infinity;
+    const beDaily = isFinite(beMonthly) ? Math.ceil(beMonthly/days) : Infinity;
+
+    const pos = monthProfit>=0;
+    let lead, sub;
+    if(pos){
+      lead = "한 달에 손에 남는 돈은 대략";
+      sub  = "재료비·월세·인건비·카드 수수료까지 다 빼고 남는 금액이에요.";
+    }else{
+      lead = "이대로라면 한 달에";
+      sub  = "버는 것보다 나가는 돈이 더 많아요. 가격을 올리거나 더 많이 팔아야 해요.";
+    }
+
+    // 손익분기 문구
+    let beLine;
+    if(!isFinite(beDaily)){
+      beLine = `이 가격으론 아무리 많이 팔아도 본전을 넘기기 어려워요. 한 잔 값이 재료비도 못 따라가요.`;
+    }else{
+      const cur = num("daily");
+      if(cur>=beDaily) beLine = `하루 <b>${beDaily}잔</b>이 본전이에요. 지금 잡은 ${cur}잔이면 이익이에요.`;
+      else beLine = `하루 <b>${beDaily}잔</b>이 본전이에요. 지금 잡은 ${cur}잔이면 손해예요.`;
+    }
+
+    // 막대 (한 잔 가격이 어디로 가는가)
+    const tot = Math.max(price, material+fixedPer+feeAmt+Math.abs(perCupProfit));
+    const w = v => tot>0 ? Math.max(v,0)/tot*100 : 0;
+    let bar = `<span class="seg-mat" style="width:${w(material)}%"></span>
+               <span class="seg-fix" style="width:${w(fixedPer)}%"></span>
+               <span class="seg-fee" style="width:${w(feeAmt)}%"></span>`;
+    bar += pos ? `<span class="seg-pro" style="width:${w(perCupProfit)}%"></span>`
+               : `<span class="seg-loss" style="width:${w(-perCupProfit)}%"></span>`;
+
+    $("result").innerHTML = `
+      <div class="verdict-lead">${lead}</div>
+      <div class="verdict ${pos?'pos':'neg'}">${pos?'+':'−'}${won(Math.abs(monthProfit))}<span class="won">원</span></div>
+      <div class="verdict-sub">약 ${pos?'+':'−'}${manwon(Math.abs(monthProfit))} · ${sub}</div>
+
+      <div class="be"><span class="ic">⎯</span><span class="txt">${beLine}</span></div>
+
+      <div class="mini">
+        <div class="row">한 잔 팔면 <b>${perCupProfit>=0?'+':'−'}${won(Math.abs(perCupProfit))}원</b> 남아요 <span style="margin-left:auto;color:var(--mud)">이익률 ${marginPct.toFixed(0)}%</span></div>
+        <div class="bar">${bar}</div>
+        <div class="legend">
+          <div class="li"><span class="dot seg-mat"></span>재료비(원두·부자재)<span class="amt">${KRW(material)}</span></div>
+          <div class="li"><span class="dot seg-fix"></span>월세·인건비 분담<span class="amt">${KRW(fixedPer)}</span></div>
+          <div class="li"><span class="dot seg-fee"></span>카드 수수료<span class="amt">${KRW(feeAmt)}</span></div>
+          <div class="li"><span class="dot ${pos?'seg-pro':'seg-loss'}"></span>${pos?'남는 돈':'모자란 돈'}<span class="amt">${KRW(perCupProfit)}</span></div>
+        </div>
+      </div>
+      <p class="honest">※ 아메리카노 한 메뉴만 놓고 본 단순 계산이에요. 실제 카페는 더 많은 변수가 있으니, 방향을 잡는 참고용으로만 보세요.</p>`;
+  }
+
+  ["rent","price","daily","labor","etc","bagPrice","bagGram","dose","sundry","days","fee"]
+    .forEach(id=>$(id).addEventListener("input", calc));
+})();
+</script>
+</body>
+</html>
