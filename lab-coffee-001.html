@@ -6,6 +6,9 @@
 <title>뜨거운 숯을 넣는 커피, 코피 조스 · COFFEE LAB 001 · 아유타 커피랩</title>
 <meta name="description" content="족자카르타 기차역 앞 노점의 명물, 뜨거운 숯을 넣는 커피 코피 조스. 이름의 유래부터 건강 이야기의 진실까지." />
 <link rel="canonical" href="https://ayutacoffeelab.com/lab-coffee-001" />
+<link rel="alternate" hreflang="ko" href="https://ayutacoffeelab.com/lab-coffee-001" />
+<link rel="alternate" hreflang="en" href="https://ayutacoffeelab.com/en/lab-coffee-001" />
+<link rel="alternate" hreflang="x-default" href="https://ayutacoffeelab.com/lab-coffee-001" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="아유타 커피랩 · AYUTA COFFEE LAB" />
 <meta property="og:title" content="뜨거운 숯을 넣는 커피, 코피 조스 · COFFEE LAB 001 · 아유타 커피랩" />
@@ -20,6 +23,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Spline+Sans+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+  .lang{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--card);font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.06em}
+  .lang a,.lang b{padding:6px 11px;text-decoration:none}
+  .lang a{color:var(--mud)} .lang a:hover{color:var(--ink)}
+  .lang b{background:var(--ink);color:#f3ead9}
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:20px}
+  .topbar .back{margin-top:0}
+
   :root{--ink:#241c17;--ink-soft:#5b4d40;--paper:#f1e9db;--card:#fbf7ef;--line:#ddccb4;--line-soft:#e9ddca;
   --green:#5e7338;--green-deep:#465828;--roast:#b5651d;--mud:#9a8467;--cherry:#c24b3a;--vanilla:#a8862e;
   --kr:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR",sans-serif;--mono:"Spline Sans Mono",ui-monospace,Menlo,monospace;}
@@ -77,6 +87,13 @@
   .pn .d{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;color:var(--mud)}
   .pn .t{font-size:13px;font-weight:700;margin-top:3px;line-height:1.4}
   .pn .nx{text-align:right}
+  .hd{display:flex;gap:18px;align-items:flex-start}
+  .hd .tx{flex:1;min-width:0}
+  .cover{flex:none;width:132px;aspect-ratio:9/16;border-radius:12px;overflow:hidden;border:1px solid var(--line);box-shadow:0 10px 24px -14px rgba(36,28,23,.45);margin-top:6px;background:#efe7d6}
+  .cover img{width:100%;height:100%;object-fit:cover;display:block}
+  @media(max-width:480px){.cover{width:104px}}
+  .shot{margin:14px auto 2px;max-width:380px;border-radius:12px;overflow:hidden;border:1px solid var(--line-soft)}
+  .shot img{display:block;width:100%;height:auto}
 
   :root{--sc:var(--roast)}
   .eyebrow{color:var(--sc)}
@@ -84,19 +101,22 @@
 </head>
 <body>
 <div class="wrap">
-  <a class="back" href="lab.html">← LAB 노트</a>
-  <header>
-    <div class="eyebrow">COFFEE LAB 001</div>
-    <h1>뜨거운 숯을 넣는 커피, 코피 조스</h1>
-    <p class="sub">족자카르타 기차역 앞 노점에서는<br>벌겋게 달군 숯을 커피잔에 그대로 넣어요.</p>
-    <div class="meta">아유타 커피랩 · 2026.11</div>
+  <div class="topbar"><a class="back" href="lab.html">← LAB 노트</a><nav class="lang" aria-label="언어"><b>KO</b><a href="en/lab-coffee-001.html" hreflang="en" lang="en">EN</a></nav></div>
+  <header class="hd" style="text-align:left">
+    <div class="tx">
+      <div class="eyebrow" style="justify-content:flex-start">COFFEE LAB 001</div>
+      <h1>뜨거운 숯을 넣는 커피, 코피 조스</h1>
+      <p class="sub">족자카르타 기차역 앞 노점에서는<br>벌겋게 달군 숯을 커피잔에 그대로 넣어요.</p>
+      <div class="meta">아유타 커피랩 · 2026.11</div>
+    </div>
+    <div class="cover"><img src="img/lab/coffee-001-cover.jpg" width="540" height="960" alt="쇼츠 표지: 뜨거운 숯을 넣는 커피, 코피 조스"></div>
   </header>
 
   <div class="label">한눈에</div>
   <div class="facts"><div class="fa"><div class="l">도시</div><div class="v">족자카르타</div></div><div class="fa"><div class="l">한 잔</div><div class="v">5,000루피아</div></div><div class="fa"><div class="l">이름의 뜻</div><div class="v">'조스!' 소리</div></div></div>
 
   <div class="label">이야기</div>
-  <section class="ch"><div class="n">01</div><h2>기차역 앞, 수레 노점</h2><p>인도네시아 자바섬의 <b>족자카르타</b>. 기차역 앞 거리에는 밤마다 <b>앙크링안</b>이라 부르는 수레 노점이 늘어서요. 싼값에 간단한 음식과 커피를 파는 곳인데, 이 가운데 유명한 메뉴가 <b>한 잔에 5,000루피아</b>쯤 하는 코피 조스예요.</p></section><section class="ch"><div class="n">02</div><h2>'조스!' 하는 소리</h2><p>만드는 법은 간단해요. 진하게 탄 커피에 화로에서 <b>벌겋게 달군 숯 한 덩이</b>를 그대로 넣어요. 숯이 커피에 닿는 순간 <b>'조스' 하는 소리</b>가 나는데, 이 소리가 그대로 이름이 됐어요. 코피는 인도네시아어로 커피예요.</p></section><section class="ch"><div class="n">03</div><h2>속이 더부룩하던 상인의 우연</h2><p>전해지는 이야기로는 <b>속이 더부룩하던 노점 상인 릭 만</b>이 화로 속 숯을 커피에 빠뜨린 게 시작이었대요. 지금은 족자카르타에 가면 한 번은 마셔 본다는 <b>도시의 명물</b>이 됐어요.</p></section><section class="ch"><div class="n">04</div><h2>속이 편해진다는 말, 사실일까요?</h2><p>현지에서는 숯이 속을 편하게 해 준다고들 하지만, <b>의학적으로 확인된 적은 없어요.</b> 2023년 말레이시아 보건 당국은 숯은 음식이 아니라며, <b>커피에 숯을 넣어 팔면 처벌받을 수 있다</b>고 경고하기도 했어요. 신기한 길거리 문화로 알아 두는 게 좋겠죠.</p></section>
+  <section class="ch"><div class="n">01</div><h2>기차역 앞, 수레 노점</h2><p>인도네시아 자바섬의 <b>족자카르타</b>. 기차역 앞 거리에는 밤마다 <b>앙크링안</b>이라 부르는 수레 노점이 늘어서요. 싼값에 간단한 음식과 커피를 파는 곳인데, 이 가운데 유명한 메뉴가 <b>한 잔에 5,000루피아</b>쯤 하는 코피 조스예요.</p><figure class="shot"><img src="img/lab/coffee-001-1.jpg" width="720" height="867" loading="lazy" alt="쇼츠 장면: 기차역 앞, 수레 노점"></figure></section><section class="ch"><div class="n">02</div><h2>'조스!' 하는 소리</h2><p>만드는 법은 간단해요. 진하게 탄 커피에 화로에서 <b>벌겋게 달군 숯 한 덩이</b>를 그대로 넣어요. 숯이 커피에 닿는 순간 <b>'조스' 하는 소리</b>가 나는데, 이 소리가 그대로 이름이 됐어요. 코피는 인도네시아어로 커피예요.</p><figure class="shot"><img src="img/lab/coffee-001-2.jpg" width="720" height="867" loading="lazy" alt="쇼츠 장면: '조스!' 하는 소리"></figure></section><section class="ch"><div class="n">03</div><h2>속이 더부룩하던 상인의 우연</h2><p>전해지는 이야기로는 <b>속이 더부룩하던 노점 상인 릭 만</b>이 화로 속 숯을 커피에 빠뜨린 게 시작이었대요. 지금은 족자카르타에 가면 한 번은 마셔 본다는 <b>도시의 명물</b>이 됐어요.</p></section><section class="ch"><div class="n">04</div><h2>속이 편해진다는 말, 사실일까요?</h2><p>현지에서는 숯이 속을 편하게 해 준다고들 하지만, <b>의학적으로 확인된 적은 없어요.</b> 2023년 말레이시아 보건 당국은 숯은 음식이 아니라며, <b>커피에 숯을 넣어 팔면 처벌받을 수 있다</b>고 경고하기도 했어요. 신기한 길거리 문화로 알아 두는 게 좋겠죠.</p></section>
   <div class="warn">※ 현지 문화를 소개하는 글이에요. 집에서 따라 하는 것은 권하지 않아요.</div>
 
   <div class="label">궁금증 하나</div>

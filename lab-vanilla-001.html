@@ -6,6 +6,9 @@
 <title>바닐라빈이 금값인 이유 · VANILLA LAB 001 · 아유타 커피랩</title>
 <meta name="description" content="꽃은 단 하루만 피고, 열매는 사람이 손으로 수분해야 열립니다. 세계에서 두 번째로 비싼 향신료, 바닐라빈 이야기." />
 <link rel="canonical" href="https://ayutacoffeelab.com/lab-vanilla-001" />
+<link rel="alternate" hreflang="ko" href="https://ayutacoffeelab.com/lab-vanilla-001" />
+<link rel="alternate" hreflang="en" href="https://ayutacoffeelab.com/en/lab-vanilla-001" />
+<link rel="alternate" hreflang="x-default" href="https://ayutacoffeelab.com/lab-vanilla-001" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="아유타 커피랩 · AYUTA COFFEE LAB" />
 <meta property="og:title" content="바닐라빈이 금값인 이유 · VANILLA LAB 001 · 아유타 커피랩" />
@@ -20,6 +23,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Spline+Sans+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+  .lang{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--card);font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.06em}
+  .lang a,.lang b{padding:6px 11px;text-decoration:none}
+  .lang a{color:var(--mud)} .lang a:hover{color:var(--ink)}
+  .lang b{background:var(--ink);color:#f3ead9}
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:20px}
+  .topbar .back{margin-top:0}
+
   :root{--ink:#241c17;--ink-soft:#5b4d40;--paper:#f1e9db;--card:#fbf7ef;--line:#ddccb4;--line-soft:#e9ddca;
   --green:#5e7338;--green-deep:#465828;--roast:#b5651d;--mud:#9a8467;--cherry:#c24b3a;--vanilla:#a8862e;
   --kr:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR",sans-serif;--mono:"Spline Sans Mono",ui-monospace,Menlo,monospace;}
@@ -77,6 +87,13 @@
   .pn .d{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;color:var(--mud)}
   .pn .t{font-size:13px;font-weight:700;margin-top:3px;line-height:1.4}
   .pn .nx{text-align:right}
+  .hd{display:flex;gap:18px;align-items:flex-start}
+  .hd .tx{flex:1;min-width:0}
+  .cover{flex:none;width:132px;aspect-ratio:9/16;border-radius:12px;overflow:hidden;border:1px solid var(--line);box-shadow:0 10px 24px -14px rgba(36,28,23,.45);margin-top:6px;background:#efe7d6}
+  .cover img{width:100%;height:100%;object-fit:cover;display:block}
+  @media(max-width:480px){.cover{width:104px}}
+  .shot{margin:14px auto 2px;max-width:380px;border-radius:12px;overflow:hidden;border:1px solid var(--line-soft)}
+  .shot img{display:block;width:100%;height:auto}
 
   :root{--sc:var(--vanilla)}
   .eyebrow{color:var(--sc)}
@@ -84,19 +101,22 @@
 </head>
 <body>
 <div class="wrap">
-  <a class="back" href="lab.html">← LAB 노트</a>
-  <header>
-    <div class="eyebrow">VANILLA LAB 001</div>
-    <h1>바닐라빈이 금값인 이유</h1>
-    <p class="sub">꽃은 단 하루, 수분은 사람 손으로 한 송이씩.<br>세계에서 두 번째로 비싼 향신료가 된 사연이에요.</p>
-    <div class="meta">아유타 커피랩 · 2026.11</div>
+  <div class="topbar"><a class="back" href="lab.html">← LAB 노트</a><nav class="lang" aria-label="언어"><b>KO</b><a href="en/lab-vanilla-001.html" hreflang="en" lang="en">EN</a></nav></div>
+  <header class="hd" style="text-align:left">
+    <div class="tx">
+      <div class="eyebrow" style="justify-content:flex-start">VANILLA LAB 001</div>
+      <h1>바닐라빈이 금값인 이유</h1>
+      <p class="sub">꽃은 단 하루, 수분은 사람 손으로 한 송이씩.<br>세계에서 두 번째로 비싼 향신료가 된 사연이에요.</p>
+      <div class="meta">아유타 커피랩 · 2026.11</div>
+    </div>
+    <div class="cover"><img src="img/lab/vanilla-001-cover.jpg" width="540" height="960" alt="쇼츠 표지: 바닐라빈이 금값인 이유"></div>
   </header>
 
   <div class="label">한눈에</div>
   <div class="facts"><div class="fa"><div class="l">꽃이 피는 시간</div><div class="v">단 하루</div></div><div class="fa"><div class="l">수분</div><div class="v">사람 손으로</div></div><div class="fa"><div class="l">숙성</div><div class="v">수개월</div></div></div>
 
   <div class="label">이야기</div>
-  <section class="ch"><div class="n">01</div><h2>사프란 다음으로 비싼 향신료</h2><p>바닐라빈은 <b>난초과 덩굴식물의 열매</b>예요. 원래 고향은 멕시코인데, 지금은 세계 여러 열대 지역에서 기릅니다. 향신료 가운데 바닐라보다 비싼 건 <b>사프란</b> 정도예요. 왜 이렇게 비쌀까요? 답은 꽃에 있어요.</p></section><section class="ch"><div class="n">02</div><h2>꽃은 단 하루만 핍니다</h2><p>바닐라 꽃은 <b>피어 있는 시간이 하루 남짓</b>이에요. 그날 안에 꽃가루가 옮겨지지 않으면 열매가 맺히지 않아요. 고향 멕시코에는 이 일을 해 주는 곤충이 있지만, 다른 나라로 옮겨 심은 바닐라는 <b>꽃이 피어도 열매가 거의 열리지 않았어요.</b></p></section><section class="ch"><div class="n">03</div><h2>1841년, 열두 살 소년의 손</h2><p>해답을 찾은 건 인도양의 레위니옹섬에 살던 <b>열두 살 소년 에드몽 알비우스</b>였어요. 가는 막대와 엄지손가락으로 꽃 한 송이씩 꽃가루를 옮기는 방법이었죠. 놀랍게도 <b>지금도 바닐라 농장에서는 거의 그대로 이 방법</b>을 씁니다. 꽃 한 송이 한 송이를 사람이 직접요.</p></section><section class="ch"><div class="n">04</div><h2>갓 딴 열매에선 향이 안 나요</h2><p>수분에 성공해도 끝이 아니에요. 갓 딴 초록색 꼬투리에서는 <b>우리가 아는 바닐라 향이 거의 나지 않아요.</b> 데치고, 땀을 내듯 묵히고, 햇볕과 그늘에서 말리고, 다시 숙성하는 과정을 <b>수개월</b> 거쳐야 검고 촉촉한 바닐라빈이 됩니다.</p></section><section class="ch"><div class="n">05</div><h2>1위 마다가스카르, 2위 인도네시아</h2><p>세계 바닐라 생산 1위는 마다가스카르, 2위는 <b>인도네시아</b>예요. 어디서 키우든 과정은 똑같아요. 하루뿐인 꽃, 사람 손으로 하는 수분, 몇 달의 숙성. 바닐라빈이 금값인 이유는 결국 <b>사람의 시간</b>이에요.</p></section>
+  <section class="ch"><div class="n">01</div><h2>사프란 다음으로 비싼 향신료</h2><p>바닐라빈은 <b>난초과 덩굴식물의 열매</b>예요. 원래 고향은 멕시코인데, 지금은 세계 여러 열대 지역에서 기릅니다. 향신료 가운데 바닐라보다 비싼 건 <b>사프란</b> 정도예요. 왜 이렇게 비쌀까요? 답은 꽃에 있어요.</p></section><section class="ch"><div class="n">02</div><h2>꽃은 단 하루만 핍니다</h2><p>바닐라 꽃은 <b>피어 있는 시간이 하루 남짓</b>이에요. 그날 안에 꽃가루가 옮겨지지 않으면 열매가 맺히지 않아요. 고향 멕시코에는 이 일을 해 주는 곤충이 있지만, 다른 나라로 옮겨 심은 바닐라는 <b>꽃이 피어도 열매가 거의 열리지 않았어요.</b></p><figure class="shot"><img src="img/lab/vanilla-001-2.jpg" width="720" height="867" loading="lazy" alt="쇼츠 장면: 꽃은 단 하루만 핍니다"></figure></section><section class="ch"><div class="n">03</div><h2>1841년, 열두 살 소년의 손</h2><p>해답을 찾은 건 인도양의 레위니옹섬에 살던 <b>열두 살 소년 에드몽 알비우스</b>였어요. 가는 막대와 엄지손가락으로 꽃 한 송이씩 꽃가루를 옮기는 방법이었죠. 놀랍게도 <b>지금도 바닐라 농장에서는 거의 그대로 이 방법</b>을 씁니다. 꽃 한 송이 한 송이를 사람이 직접요.</p><figure class="shot"><img src="img/lab/vanilla-001-3.jpg" width="720" height="867" loading="lazy" alt="쇼츠 장면: 1841년, 열두 살 소년의 손"></figure></section><section class="ch"><div class="n">04</div><h2>갓 딴 열매에선 향이 안 나요</h2><p>수분에 성공해도 끝이 아니에요. 갓 딴 초록색 꼬투리에서는 <b>우리가 아는 바닐라 향이 거의 나지 않아요.</b> 데치고, 땀을 내듯 묵히고, 햇볕과 그늘에서 말리고, 다시 숙성하는 과정을 <b>수개월</b> 거쳐야 검고 촉촉한 바닐라빈이 됩니다.</p></section><section class="ch"><div class="n">05</div><h2>1위 마다가스카르, 2위 인도네시아</h2><p>세계 바닐라 생산 1위는 마다가스카르, 2위는 <b>인도네시아</b>예요. 어디서 키우든 과정은 똑같아요. 하루뿐인 꽃, 사람 손으로 하는 수분, 몇 달의 숙성. 바닐라빈이 금값인 이유는 결국 <b>사람의 시간</b>이에요.</p></section>
   
 
   <div class="label">궁금증 하나</div>
