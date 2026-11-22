@@ -2,6 +2,7 @@
 import json, re, sys, html, os
 from common import *
 from lab import NOTES, SERIES
+from glossary_data import GLOSS
 from archive_contact import contact_link
 from i18n_en import ISLANDS_EN, ORIGINS_EN, SPEC_KEYS, KIND, NOTES_EN
 
@@ -138,6 +139,7 @@ UI = {
             isl_story="{} 섬 이야기 →", on_map="지도에서 보기 →", map="산지 지도 열기 →", origin_n="{} · 커피 산지 {:02d}",
             src="출처: {} · 아유타 로트·거래 농장 노트는 아유타 직접 거래처 정보", isl_eye="인도네시아의 섬", origins="커피 산지 · {}",
             facts="알아 두면 좋은 것", related="관련 이야기", other_isl="다른 섬", isl_src="출처: {} · 산지 자료: {}",
+            yt="유튜브에서 쇼츠 보기", yt_s="주 3회, 인도네시아 커피·바닐라 이야기",
             foot='<div class="foot"><b>아유타 커피랩</b> · AYUTA COFFEE LAB<br>인도네시아 커피와 바닐라 아카이브</div>',
             o_title="{} · {} 커피 산지 | 아유타 커피랩", i_title="{} 커피와 문화 · 인도네시아 {} | 아유타 커피랩", ko_only=""),
  "en": dict(site="AYUTA COFFEE LAB", flavor="Flavor", flavor_note="※ Flavor notes describe the general tendency and vary by lot and process.",
@@ -145,6 +147,7 @@ UI = {
             isl_story="About {} →", on_map="See on the map (Korean) →", map="Open the origin map (Korean) →", origin_n="{} · Coffee origin {:02d}",
             src="Sources: {} · Ayuta lot and farm notes come from Ayuta's direct suppliers.", isl_eye="Islands of Indonesia", origins="Coffee origins · {}",
             facts="Good to know", related="Related story", other_isl="Other islands", isl_src="Sources: {} · Origin data: {}",
+            yt="Watch our Shorts on YouTube", yt_s="Three new stories a week (in Korean)",
             foot='<div class="foot"><b>AYUTA COFFEE LAB</b><br>Indonesian Coffee &amp; Vanilla Archive</div>',
             o_title="{} · {} Coffee Origin | AYUTA COFFEE LAB", i_title="{} Coffee & Culture, Indonesia | AYUTA COFFEE LAB", ko_only=" (Korean)"),
 }
@@ -309,8 +312,10 @@ HOME_CSS = BASE_CSS + """
   .res a+a{border-top:1px solid var(--line-soft)}
   .res a:hover,.res a:focus{background:var(--card);outline:none}
   .res small{font-size:11.5px;color:var(--mud);font-weight:600;white-space:nowrap}
+  .res .rt{min-width:0}.res em{display:block;font-style:normal;font-weight:500;font-size:12.5px;line-height:1.5;color:var(--ink-soft);margin-top:3px}
   .res .none{padding:12px 15px;font-size:13.5px;color:var(--mud)}
   .count{font-family:var(--mono);font-size:11px;color:var(--mud);letter-spacing:.08em;margin-top:12px}
+  .count a{color:var(--green-deep);font-weight:700;text-decoration:underline;text-underline-offset:3px}
   .sech{text-align:center;font-size:20px;font-weight:800;letter-spacing:-.02em;margin:10px 0 0}
   .label{justify-content:center;margin-top:46px} .label::before{content:"";flex:none;width:30px;height:1px;background:var(--line)} .label::after{flex:none;width:30px}
   .isl{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-top:18px}
@@ -333,9 +338,21 @@ HOME_CSS = BASE_CSS + """
   .more{text-align:center;margin-top:12px} .more a{font-size:13px;font-weight:700;color:var(--green-deep);text-decoration:none}
   .tools{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:18px}
   @media(max-width:640px){.tools{grid-template-columns:1fr 1fr}}
-  .tl{display:block;background:var(--card);border:1px solid var(--line);border-radius:13px;padding:13px 14px;text-decoration:none;color:inherit}
-  .tl:hover{border-color:var(--roast)}
-  .tl .h{font-size:14.5px;font-weight:800} .tl .h::after{content:" →";color:var(--roast)}
+  .tl{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;transition:transform .15s,border-color .15s}
+  .tl:hover{border-color:var(--tc);transform:translateY(-2px)}
+  .tl .ti{display:flex;align-items:center;justify-content:center;height:92px;background:color-mix(in srgb,var(--tc) 13%,#fbf7f1);border-bottom:1px solid var(--line-soft);color:var(--tc)}
+  .tl .ti svg{width:56px;height:56px;transition:transform .2s}
+  .tl:hover .ti svg{transform:scale(1.08) rotate(-3deg)}
+  .tl .tb{padding:12px 14px 14px}
+  .tl .h{font-size:14.5px;font-weight:800} .tl .h::after{content:" →";color:var(--tc)}
+  .yt{display:flex;align-items:center;gap:13px;max-width:660px;margin:16px auto 0;padding:13px 16px;background:var(--card);border:1px solid var(--line);border-radius:14px;text-decoration:none;color:inherit}
+  .yt:hover{border-color:#c4302b}
+  .yt .yp{flex:none;display:flex;align-items:center;justify-content:center;width:42px;height:30px;border-radius:9px;background:#c4302b}
+  .yt .yp svg{width:20px;height:20px}
+  .yt b{display:block;font-size:14.5px;font-weight:800}.yt small{display:block;font-size:12px;color:var(--ink-soft);margin-top:2px}
+  .yt .ya{margin-left:auto;color:#c4302b;font-weight:800}
+  .yt.ig{margin-top:9px}.yt.ig:hover{border-color:#c13584}.yt.ig .yp{width:30px;background:linear-gradient(45deg,#f9a13a,#e1306c 50%,#833ab4)}.yt.ig .ya{color:#c13584}
+  .yt.ig .yp{margin:0 6px}
   .tl .d{font-size:12px;color:var(--ink-soft);margin-top:3px;line-height:1.45}
   .maker{margin-top:46px;border-top:1px solid var(--line);padding-top:22px;text-align:center}
   .maker p{font-size:13.5px;color:var(--ink-soft);margin:0;line-height:1.75}
@@ -492,6 +509,19 @@ def island_map(lang="ko"):
   </script>"""
 
 
+TOOL_ICON = {
+ # 산지 지도: 접힌 지도 + 핀
+ "map": ("#3c7a74", '<path d="M6 13l11-4 14 4 11-4v26l-11 4-14-4-11 4z" fill="#fff" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M17 9v26M31 13v26" stroke="currentColor" stroke-width="2" opacity=".45"/><path d="M10 25c4-3 7 2 11-1s7-3 10 0 6 1 8-1" stroke="currentColor" stroke-width="1.8" fill="none" opacity=".5" stroke-linecap="round"/><path d="M31 6c-4 0-7 3-7 6.6 0 4.8 7 11.4 7 11.4s7-6.6 7-11.4C38 9 35 6 31 6z" fill="#8b1e3f"/><circle cx="31" cy="12.6" r="2.6" fill="#fff"/>'),
+ # 생두 도감: 생두 두 알
+ "bean": ("#5e7338", '<g transform="rotate(-28 17 25)"><ellipse cx="17" cy="25" rx="8.5" ry="12" fill="#c9cf9a" stroke="currentColor" stroke-width="2.2"/><path d="M15.5 14c3 4 3 18 0 22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></g><g transform="rotate(22 32 24)"><ellipse cx="32" cy="24" rx="8.5" ry="12" fill="#a9b56e" stroke="currentColor" stroke-width="2.2"/><path d="M30.5 13c3 4 3 18 0 22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></g>'),
+ # 카페 계산기: 계산기 + 동전
+ "calc": ("#b5651d", '<rect x="9" y="6" width="22" height="34" rx="4" fill="#fff" stroke="currentColor" stroke-width="2.2"/><rect x="13" y="10" width="14" height="7" rx="1.5" fill="currentColor" opacity=".85"/><g fill="currentColor" opacity=".55"><circle cx="15" cy="23" r="1.9"/><circle cx="20" cy="23" r="1.9"/><circle cx="25" cy="23" r="1.9"/><circle cx="15" cy="29" r="1.9"/><circle cx="20" cy="29" r="1.9"/><circle cx="25" cy="29" r="1.9"/><circle cx="15" cy="35" r="1.9"/><circle cx="20" cy="35" r="1.9"/><circle cx="25" cy="35" r="1.9"/></g><circle cx="35" cy="34" r="8" fill="#e8b04a" stroke="currentColor" stroke-width="2"/><text x="35" y="38" text-anchor="middle" font-size="10.5" font-weight="800" font-family="sans-serif" fill="currentColor">₩</text>'),
+ # 홈 레시피: 설탕 병 + 바닐라빈
+ "recipe": ("#a8862e", '<rect x="11" y="13" width="20" height="27" rx="5" fill="#fff" stroke="currentColor" stroke-width="2.2"/><rect x="13" y="8" width="16" height="6" rx="2" fill="currentColor" opacity=".8"/><path d="M13.5 26h15v9a3 3 0 01-3 3h-9a3 3 0 01-3-3z" fill="#f3e6c8"/><path d="M24 40c4-10 9-22 15-32" stroke="#4a2c17" stroke-width="3.4" stroke-linecap="round" fill="none"/><path d="M36 8l4-3M37.5 10.5l4.5-1" stroke="#7a9a4a" stroke-width="2" stroke-linecap="round"/>'),
+}
+YOUTUBE_URL = "https://www.youtube.com/@ayutacoffeelab"  # 아유타 커피랩 유튜브 채널 주소. 비워 두면 메인에 안 나와요.
+
+
 HOME_UI = {
  "ko": dict(title="아유타 커피랩 · 인도네시아 커피와 바닐라 아카이브",
             desc="인도네시아 커피 전문가가 산지에서 보고 배운 모든 것. 수마트라·자바·발리·술라웨시·누사틍가라·파푸아의 커피 산지 16곳과 섬별 문화, 바닐라 이야기.",
@@ -499,30 +529,113 @@ HOME_UI = {
             sub="인도네시아 커피 전문가가 산지에서 보고 배운 모든 것", ph="토라자, 가요, 길링 바사, 바닐라…", qaria="아카이브 검색",
             count="자료 {}개 · 계속 쌓이는 중", none="아직 없는 자료예요. 곧 채울게요.", by_isl="섬으로 찾기", lab="LAB 노트",
             lab_h="쇼츠에서 본 이야기, 여기서 자세히", more="이야기 전체 보기 →", tools="도구",
-            tl=[("indonesia_origin_map.html", "산지 지도", "16곳을 지형 지도에서"), ("bean_catalog.html", "생두 도감", "산지·가공·향미 카드"),
-                ("cafe_pricing.html", "카페 계산기", "한 잔의 원가와 이익"), ("recipe.html", "홈 레시피", "바닐라빈 슈가부터")],
+            tl=[("map", "indonesia_origin_map.html", "산지 지도", "16곳을 지형 지도에서"), ("bean", "bean_catalog.html", "생두 도감", "산지·가공·향미 카드"),
+                ("calc", "cafe_pricing.html", "카페 계산기", "한 잔의 원가와 이익"), ("recipe", "recipe.html", "홈 레시피", "바닐라빈 슈가부터")],
             maker="아유타 커피랩은 인도네시아 커피와 바닐라빈을 들여오는 <b>아유타커피</b>가 만들어요.",
-            buy="원두·바닐라빈 → 아유타커피", co="회사 → 아유타상사",
+            buy="원두·바닐라빈 → 아유타커피", co="회사 → 아유타상사", ig="아유타커피 인스타그램",
             s_isl="섬", s_org="{} · 산지", s_story="이야기", s_tool="도구·레시피",
             tools_idx=[("인도네시아 커피 산지 지도", "지도 산지 map", "indonesia_origin_map.html"), ("커피 장사로 부자되는 계산기", "계산기 원가 카페 이익", "cafe_pricing.html"),
                        ("생두 도감", "생두 도감 green bean", "bean_catalog.html"), ("바닐라빈 슈가 만드는 법", "바닐라 레시피 설탕", "recipe_vanilla_sugar.html")],
-            foot='<div class="foot"><b>아유타 커피랩</b> · AYUTA COFFEE LAB<br>(주)아유타상사 · Ayuta Trading Co., Ltd.</div>', cover="쇼츠 표지"),
+            foot='<div class="foot"><b>아유타 커피랩</b> · AYUTA COFFEE LAB<br>(주)아유타상사 · Ayuta Trading Co., Ltd.</div>', cover="쇼츠 표지", gl=' · <a href="glossary.html">용어 사전</a>', yt="아유타커피랩 유튜브 채널", yt_s="알고 마시면 더 맛있는 인도네시아 커피와 바닐라 이야기"),
  "en": dict(title="AYUTA COFFEE LAB · Indonesian Coffee & Vanilla Archive",
             desc="Everything an Indonesian coffee specialist has seen and learned at the origin: 16 coffee origins across Sumatra, Java, Bali, Sulawesi, Nusa Tenggara and Papua, island culture and the story of vanilla.",
             maplink="Origin map (Korean) →", h1="Indonesian <span class='g'>Coffee</span> &amp; <span class='r'>Vanilla</span> Archive",
             sub="Everything an Indonesian coffee specialist has seen and learned at the origin", ph="Toraja, Gayo, wet-hulling, vanilla…", qaria="Search the archive",
             count="{} entries · and growing", none="Nothing here yet. More is on the way.", by_isl="Explore by island", lab="LAB Notes",
             lab_h="Stories from our Shorts, in depth", more="All stories →", tools="Tools (in Korean)",
-            tl=[("../indonesia_origin_map.html", "Origin map", "16 origins on a terrain map"), ("../bean_catalog.html", "Green bean catalog", "Origin, process, flavor"),
-                ("../cafe_pricing.html", "Café calculator", "Cost and profit per cup"), ("../recipe.html", "Home recipes", "Starting with vanilla sugar")],
+            tl=[("map", "../indonesia_origin_map.html", "Origin map", "16 origins on a terrain map"), ("bean", "../bean_catalog.html", "Green bean catalog", "Origin, process, flavor"),
+                ("calc", "../cafe_pricing.html", "Café calculator", "Cost and profit per cup"), ("recipe", "../recipe.html", "Home recipes", "Starting with vanilla sugar")],
             maker="AYUTA COFFEE LAB is made by <b>Ayuta Coffee</b>, an importer of Indonesian coffee and vanilla beans.",
-            buy="Coffee &amp; vanilla → Ayuta Coffee", co="Company → Ayuta Trading",
+            buy="Coffee &amp; vanilla → Ayuta Coffee", co="Company → Ayuta Trading", ig="Ayuta Coffee on Instagram",
             s_isl="Island", s_org="{} · origin", s_story="Story", s_tool="Tool (Korean)",
             tools_idx=[("Indonesian coffee origin map", "map origins", "../indonesia_origin_map.html"), ("Café profit calculator", "calculator cost cafe profit", "../cafe_pricing.html"),
                        ("Green bean catalog", "green bean catalog", "../bean_catalog.html")],
-            foot='<div class="foot"><b>AYUTA COFFEE LAB</b><br>Ayuta Trading Co., Ltd.</div>', cover="Short cover"),
+            foot='<div class="foot"><b>AYUTA COFFEE LAB</b><br>Ayuta Trading Co., Ltd.</div>', cover="Short cover", gl="", yt="AYUTA COFFEE LAB on YouTube", yt_s="Stories of Indonesian coffee and vanilla that make every cup taste better (in Korean)"),
 }
 LAB_IMG = {"lab-vanilla-001": "vanilla-001", "lab-indonesia-001": "indonesia-001", "lab-coffee-001": "coffee-001"}
+
+
+# 같은 말을 다르게 쓰는 경우 (검색용 별칭)
+GLOSS_ALIAS = {
+    "BP": "비피 로부스타 클론", "Tugusari": "투구사리", "Lini S (S795)": "라인에스 린이에스 s라인 에스795",
+    "Sigararutang": "시가라루탕 시가라 우탕", "Kartika": "카르티카", "Typica / Typika": "티피카 티피카종",
+    "Kopyol": "코퓰 코피올", "Red Bourbon": "레드 버번 레드부르봉 부르봉 버본",
+    "내추럴 (Natural)": "내추럴 내츄럴 natural 건식", "익스텐디드 내추럴 (Extended Natural)": "익스텐디드 익스텐드 롱 내추럴",
+    "아나에로빅 (Anaerobic)": "애너로빅 혐기 무산소 anaerobic", "웨트헐 / 길링 바사 (Giling Basah)": "웻헐 웻헐링 웨트헐링 웨트 헐 wet hull wet-hulled 길링바사 습식 탈각 세미워시",
+    "풀워시 (Full Wash · 워시드)": "풀워시드 풀 워시 워시드 washed 수세식 습식", "신도로 · 숨빙 (Sindoro · Sumbing)": "신도로 숨빙 산",
+    "커핑 점수": "커핑 스코어 cupping score sca 점수", "밀도 (g/L)": "밀도 density", "그레이드 G1–G3": "등급 그레이드 grade g1 g2 g3", "핸드픽 (Hand-pick)": "핸드픽 핸드피킹 손으로 골라 선별",
+}
+
+
+def glossary():
+    """생두 도감의 '용어 풀이'를 검색에 넣는다: (용어, 앵커, 풀이)"""
+    p = f"{OUT}/bean_catalog.html"
+    if not os.path.exists(p):
+        return []
+    src = open(p, encoding="utf-8").read()
+    out = []
+    for gid, term, d in re.findall(r'<div class="gt" id="(g-\d+)"><b>(.*?)</b>\s*[—-]\s*(.*?)</div>', src, re.S):
+        d = re.sub("<[^>]+>", "", d).strip()
+        out.append((re.sub("<[^>]+>", "", term).strip(), gid, d))
+    return out
+
+
+def tid(i):
+    return f"t-{i}"
+
+
+def all_terms():
+    """(그룹, 용어, 별칭, 풀이, 링크, 앵커) — 용어 사전 + 생두 도감 용어 풀이"""
+    out = []
+    for g, items in GLOSS:
+        for t, al, d, u in items:
+            out.append((g, t, al, d, u))
+    names = {t for _, t, _, _, _ in out}
+    for t, gid, d in glossary():
+        if t not in names:
+            out.append(("생두 도감 용어", t, GLOSS_ALIAS.get(t, ""), d, f"bean_catalog.html#{gid}"))
+    return [(g, t, al, d, u, tid(i + 1)) for i, (g, t, al, d, u) in enumerate(out)]
+
+
+def glossary_page():
+    terms = all_terms()
+    groups = []
+    for g, t, al, d, u, a in terms:
+        if not groups or groups[-1][0] != g:
+            groups.append((g, []))
+        more = f' <a href="{u}">자세히 →</a>' if u else ""
+        groups[-1][1].append(f'<li id="{a}"><b>{t}</b><span>{d}{more}</span></li>')
+    body = "".join(f'<div class="label">{g}</div><ul class="gl">{"".join(li)}</ul>' for g, li in groups)
+    css = """
+  .gl{list-style:none;margin:14px 0 0;padding:0;border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden}
+  .gl li{display:flex;flex-direction:column;gap:4px;padding:13px 16px;scroll-margin-top:20px}
+  .gl li+li{border-top:1px solid var(--line-soft)}
+  .gl b{font-size:15px;font-weight:800}
+  .gl span{font-size:14px;line-height:1.7;color:var(--ink-soft)}
+  .gl a{color:var(--green-deep);font-weight:700;text-decoration:none;white-space:nowrap}
+  .gl li:target{background:#fbefc9}"""
+    title = "인도네시아 커피 용어 사전 · 아유타 커피랩"
+    desc = "코피 투브룩, 코피 수수, 굴라 아렌, 코피 루왁, 길링 바사, 아살란, 로부스타까지. 인도네시아 커피와 바닐라 용어를 한국어로 쉽게 풀었어요."
+    return f"""<!doctype html>
+<html lang="ko">
+<head>
+{meta(title, desc, "glossary", alt=False)}
+<style>{CSS}{css}</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="crumb"><a href="index.html">아유타 커피랩</a><span>›</span>용어 사전</div>
+  <header>
+    <div class="eyebrow">GLOSSARY</div>
+    <h1>인도네시아 커피 용어 사전</h1>
+    <p class="lead">인도네시아에서 커피를 마시고, 사고, 이야기할 때 나오는 말 {len(terms)}개. 계속 늘어나요.</p>
+  </header>
+  {body}
+  {UI["ko"]["foot"]}
+</div>
+</body>
+</html>
+"""
 
 
 def home(lang="ko"):
@@ -543,13 +656,18 @@ def home(lang="ko"):
     for n in NOTES:
         nt = NT(n)
         idx.append(dict(t=re.sub("<[^>]+>", "", nt["title"]), k=f'{nt["title"]} {nt["desc"]} {n["series"]}', s=h["s_story"], u=f'{n["slug"]}.html'))
+    if lang == "ko":
+        for g, t, al, d, u, a in all_terms():
+            idx.append(dict(t=t, k=f"{t} {al} {d}", s="용어", d=d, u=f"glossary.html#{a}"))
     for t, k, u in h["tools_idx"]:
         idx.append(dict(t=t, k=k, s=h["s_tool"], u=u))
     for d in idx:
         d["k"] = re.sub("<[^>]+>", " ", d["k"]).lower()
     n_docs = len(ORIGINS) + len(ISLANDS) + len(NOTES)
     ext = 'target="_blank" rel="noopener"'
-    tools = "".join(f'<a class="tl" href="{u}"><div class="h">{t}</div><div class="d">{d}</div></a>' for u, t, d in h["tl"])
+    tools = "".join(f'<a class="tl" href="{u}" style="--tc:{TOOL_ICON[ic][0]}"><div class="ti"><svg viewBox="0 0 48 48" aria-hidden="true">{TOOL_ICON[ic][1]}</svg></div><div class="tb"><div class="h">{t}</div><div class="d">{d}</div></div></a>' for ic, u, t, d in h["tl"])
+    yt = (f'<a class="yt" href="{YOUTUBE_URL}" target="_blank" rel="noopener"><span class="yp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7l8 5-8 5z" fill="#fff"/></svg></span><span><b>{h["yt"]}</b><small>{h["yt_s"]}</small></span><span class="ya">→</span></a>') if YOUTUBE_URL else ""
+    yt += (f'<a class="yt ig" href="https://www.instagram.com/ayutacoffee/" target="_blank" rel="noopener"><span class="yp"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#fff" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="16.8" cy="7.2" r=".9" fill="#fff" stroke="none"/></svg></span><span><b>{h["ig"]}</b><small>@ayutacoffee</small></span><span class="ya">→</span></a>')
     contact = contact_link() if lang == "ko" else ""
     return f"""<!doctype html>
 <html lang="{lang}">
@@ -572,7 +690,7 @@ def home(lang="ko"):
       <input id="q" type="search" placeholder="{h["ph"]}" aria-label="{h["qaria"]}" autocomplete="off">
     </div>
     <div class="res" id="res"></div>
-    <div class="count">{h["count"].format(n_docs)}</div>
+    <div class="count">{h["count"].format(n_docs)}{h["gl"]}</div>
   </header>
 
   <div class="label" id="islands">{h["by_isl"]}</div>
@@ -582,6 +700,7 @@ def home(lang="ko"):
   <h2 class="sech">{h["lab_h"]}</h2>
   <div class="notes">{notes}</div>
   <div class="more"><a href="lab.html">{h["more"]}</a></div>
+  {yt}
 
   <div class="label">{h["tools"]}</div>
   <div class="tools">{tools}</div>
@@ -604,8 +723,8 @@ def home(lang="ko"):
   q.addEventListener('input',function(){{
     var v=q.value.trim().toLowerCase();
     if(!v){{res.style.display='none';res.innerHTML='';return;}}
-    var ws=v.split(/\\s+/),hit=IDX.filter(function(d){{return ws.every(function(w){{return d.k.indexOf(w)>=0||d.t.toLowerCase().indexOf(w)>=0;}});}}).slice(0,8);
-    res.innerHTML=hit.length?hit.map(function(d){{return '<a href="'+d.u+'">'+esc(d.t)+'<small>'+esc(d.s)+'</small></a>';}}).join(''):'<div class="none">{h["none"]}</div>';
+    var ws=v.split(/\\s+/),hit=IDX.filter(function(d){{return ws.every(function(w){{return d.k.indexOf(w)>=0||d.t.toLowerCase().indexOf(w)>=0;}});}});hit.sort(function(a,b){{function r(d){{var t=d.t.toLowerCase();var k=' '+d.k.replace(/[()·,/]/g,' ')+' ';return t===v?0:t.indexOf(v)===0?1:k.indexOf(' '+v+' ')>=0?2:t.indexOf(v)>=0?3:4;}}return r(a)-r(b);}});hit=hit.slice(0,8);
+    res.innerHTML=hit.length?hit.map(function(d){{return '<a href="'+d.u+'"><span class="rt">'+esc(d.t)+(d.d?'<em>'+esc(d.d)+'</em>':'')+'</span><small>'+esc(d.s)+'</small></a>';}}).join(''):'<div class="none">{h["none"]}</div>';
     res.style.display='block';
   }});
   q.addEventListener('keydown',function(e){{if(e.key==='Enter'){{var a=res.querySelector('a');if(a)location.href=a.getAttribute('href');}}}});
@@ -632,6 +751,8 @@ if __name__ == "__main__":
         for i in ISLANDS:
             open(f"{d}/island-{i['slug']}.html", "w").write(island_page(i, lang)); paths.append(pre + "island-" + i["slug"])
         open(f"{d}/index.html", "w").write(home(lang))
+        if lang == "ko":
+            open(f"{d}/glossary.html", "w").write(glossary_page()); paths.append("glossary")
         paths += [pre + "lab"] + [pre + n["slug"] for n in NOTES]
     paths += ["indonesia_origin_map", "bean_catalog", "cafe_pricing", "recipe", "recipe_vanilla_sugar"]
     open(f"{OUT}/sitemap.xml", "w").write(sitemap(paths))

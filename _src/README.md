@@ -35,3 +35,8 @@ LAB_CONTACT_EMAIL=협업메일주소 python3 archive.py ..
 - `python3 archive.py <저장소>` 와 `python3 lab.py <저장소>` 를 돌리면 한국어(루트)와 영문(`en/`)이 함께 만들어져요.
 - 지도·생두 도감·계산기·레시피는 한국어만 있어요. 영문 페이지에서는 "(Korean)"으로 표시해 연결해요.
 - LAB 노트 이미지: `img/lab/<노트>-cover.jpg` (표지) + 장면 2장. 어떤 장면을 넣을지는 `lab.py`의 `SHOTS`.
+
+## 용어 사전 (glossary.html)
+- 용어는 `glossary_data.py`에 적어요: (용어, 검색 별칭, 풀이, 관련 링크).
+- 생두 도감(`bean_catalog.html`)의 '용어 풀이'도 자동으로 사전과 메인 검색에 들어가요. 별칭은 `archive.py`의 `GLOSS_ALIAS`.
+- 메인 검색창에서 용어를 치면 풀이가 바로 보이고, 누르면 사전의 그 용어로 가요.
